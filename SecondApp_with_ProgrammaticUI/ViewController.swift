@@ -7,6 +7,10 @@
 
 import UIKit
 
+extension UIColor {
+    static var mainPinkColor = UIColor(displayP3Red: 232/255, green: 68/255, blue: 133/255, alpha: 1)
+}
+
 class ViewController: UIViewController {
 
     var layout: UILayoutGuide!
@@ -58,7 +62,7 @@ class ViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Prev", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .red
+        button.backgroundColor = .mainPinkColor
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +80,16 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private let pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.currentPage = 0
+        pc.numberOfPages = 3
+        pc.currentPageIndicatorTintColor = .mainPinkColor
+        pc.pageIndicatorTintColor = .gray
+        
+        return pc
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layout = view.safeAreaLayoutGuide//SafeArea representation
@@ -90,7 +104,7 @@ class ViewController: UIViewController {
     func setupBottomControls() {
 //        view.addSubview(previousButton)
         
-        bottomControlsStackView = UIStackView(arrangedSubviews: [previousButton, nextButton])
+        bottomControlsStackView = UIStackView(arrangedSubviews: [previousButton, pageControl, nextButton])
         bottomControlsStackView.axis = .horizontal
         bottomControlsStackView.distribution = .fillEqually
         
