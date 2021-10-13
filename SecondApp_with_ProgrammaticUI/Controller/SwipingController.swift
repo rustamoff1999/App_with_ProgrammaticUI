@@ -20,15 +20,15 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return pages.count
     }
     
     //indexPath specifies the location of the item
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellId", for: indexPath)
-        //indexPath.item is 0 for the first cell, 1 - for the second cell and so on
-        //cell.backgroundColor = indexPath.item % 2 == 0 ? .purple : .yellow
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellId", for: indexPath) as! PageCell
         
+        //indexPath.item is 0 for the first cell, 1 - for the second cell and so on
+        cell.page = pages[indexPath.item]
         return cell
     }
     

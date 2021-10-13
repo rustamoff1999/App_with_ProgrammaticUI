@@ -9,26 +9,34 @@ import UIKit
 
 class PageCell: UICollectionViewCell {
     
-    let nikeImageView: UIImageView = {
-        let image = UIImageView(image: #imageLiteral(resourceName: "nikeLogo"))
+    var page: Page? {
+        didSet {
+            guard let unwrappedPage = page else {
+                return
+            }
+            imageView.image = UIImage(named: unwrappedPage.imageName)
+            
+            //:**Creating custom attribute textView(text's attributes)**
+            let attributedText = NSMutableAttributedString(string: unwrappedPage.headerText, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
+            //Add other text there
+            attributedText.append(NSAttributedString(string: "\n\(unwrappedPage.bodyText)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor:  UIColor.gray]))
+            
+            //:**Setting text's atttributes**
+            descriptionTextView.attributedText = attributedText
+            descriptionTextView.textAlignment = .center
+        }
+    }
+    
+    private let imageView: UIImageView = {
+        let image = UIImageView()
         
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()//Anonymous Closure(Here we are writing only those things that'll never change)
     
-    let descriptionTextView: UITextView = {
+    private let descriptionTextView: UITextView = {
         let textView = UITextView()
-        
-        //:**Creating custom attribute textView(text's attributes)**
-        let attributedText = NSMutableAttributedString(string: "Just do it.", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)])
-        
-        //Add other text there
-        attributedText.append(NSAttributedString(string: "\nThe tenacity of athletes and their spirit of pushing through adversity will win out in the end, and a global pandemic won't stop sports.", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor:  UIColor.gray]))
-        
-        //:**Setting text's atttributes**
-        textView.attributedText = attributedText
-        
         
         textView.translatesAutoresizingMaskIntoConstraints = false
         //textView.font = UIFont.boldSystemFont(ofSize: 18)
@@ -62,12 +70,12 @@ class PageCell: UICollectionViewCell {
     
     private func setupLayout() {
         addSubview(topImageContainerView)
-        topImageContainerView.addSubview(nikeImageView)
+        topImageContainerView.addSubview(imageView)
         addSubview(descriptionTextView)
         
-        nikeImageView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor).isActive = true
-        nikeImageView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor).isActive = true
-        nikeImageView.heightAnchor.constraint(equalTo: topImageContainerView.heightAnchor, multiplier: 0.5).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor).isActive = true
+        imageView.heightAnchor.constraint(equalTo: topImageContainerView.heightAnchor, multiplier: 0.5).isActive = true
         
 //        nikeImageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
 //        nikeImageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
