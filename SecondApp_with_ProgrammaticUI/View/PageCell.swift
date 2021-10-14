@@ -66,6 +66,7 @@ class PageCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+        
         setupLayout()
     }
     
@@ -77,6 +78,7 @@ class PageCell: UICollectionViewCell {
         addSubview(topImageContainerView)
         topImageContainerView.addSubview(imageView)
         addSubview(descriptionTextView)
+        
         
         imageView.centerXAnchor.constraint(equalTo: topImageContainerView.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: topImageContainerView.centerYAnchor).isActive = true
