@@ -14,6 +14,13 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
     var bottomControlsStackView: UIStackView!
     var layout: UILayoutGuide!
     
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let x = targetContentOffset.pointee.x
+//        print(x, view.frame.width, x/view.frame.width)
+        
+        pageControl.currentPage = Int(x / view.frame.width)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
