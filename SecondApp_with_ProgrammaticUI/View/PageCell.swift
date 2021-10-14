@@ -62,40 +62,11 @@ class PageCell: UICollectionViewCell {
         return containerView
     }()
     
-    let nextButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Next", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .mainPinkColor
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        return button
-    }()
-    
-    let prevButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Prev", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .blue
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        
-        return button
-    }()
-    
-    let pageControl: UIPageControl = {
-        let pc = UIPageControl()
-        pc.currentPage = 0
-        pc.numberOfPages = pages.count
-        pc.currentPageIndicatorTintColor = .mainPinkColor
-        pc.pageIndicatorTintColor = .gray
-        
-        return pc
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
         setupLayout()
-        setupBottomLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -125,9 +96,4 @@ class PageCell: UICollectionViewCell {
         topImageContainerView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
     }
-    
-    private func setupBottomLayout() {
-        
-    }
-    
 }
