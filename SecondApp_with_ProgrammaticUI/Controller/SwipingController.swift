@@ -14,24 +14,6 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
     var bottomControlsStackView: UIStackView!
     var layout: UILayoutGuide!
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        coordinator.animate { (_) in
-            self.collectionViewLayout.invalidateLayout()
-            
-            if self.pageControl.currentPage == 0 {
-                self.collectionView.contentOffset = .zero
-            }
-            else {
-                let indexPath = IndexPath(item: self.pageControl.currentPage, section: 0)
-                self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            }
-            
-        } completion: { (_) in
-            
-        }
-    }
-    
     override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let x = targetContentOffset.pointee.x
 //        print(x, view.frame.width, x/view.frame.width)
@@ -50,27 +32,6 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
         setupBottomLayout()
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pages.count
-    }
-    
-    //indexPath specifies the location of the item
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellId", for: indexPath) as! PageCell
-        
-        //indexPath.item is 0 for the first cell, 1 - for the second cell and so on
-        cell.page = pages[indexPath.item]
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //return CGSize(width: 100, height: 100)
-        return CGSize(width: view.frame.width, height: view.frame.height)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
     
     let nextButton: UIButton = {
         let button = UIButton(type: .system)
@@ -94,7 +55,7 @@ class SwipingController: UICollectionViewController, UICollectionViewDelegateFlo
         return button
     }()
     
-    private let pageControl: UIPageControl = {
+    let pageControl: UIPageControl = {
         let pc = UIPageControl()
         pc.numberOfPages = pages.count
         pc.currentPageIndicatorTintColor = .mainPinkColor
